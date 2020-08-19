@@ -51,9 +51,10 @@ namespace SportsStore
 
             app.UseEndpoints(endpoints =>
             {
-                // 自定义分页的路由。第一个参数name可以是任意值。
-                endpoints.MapControllerRoute("pagination","Products/Page{productPage}",
-                    new { Controller = "Home", action = "Index" });
+                endpoints.MapControllerRoute("catpage", "{category}/Page{productPage:int}", new { Controller = "Home", action = "Index" });
+                endpoints.MapControllerRoute("page", "Page{productPage:int}", new { Controller = "Home", action = "Index", productPage = 1 });
+                endpoints.MapControllerRoute("category", "{category}", new { Controller = "Home", action = "Index", productPage = 1 });
+                endpoints.MapControllerRoute("pagination", "Products/Page{productPage}", new { Controller = "Home", action = "Index", productPage=1 });
                 endpoints.MapDefaultControllerRoute();
             });
             SeedData.EnsurePopulated(app);
