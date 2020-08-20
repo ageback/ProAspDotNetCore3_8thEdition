@@ -32,5 +32,11 @@ namespace SportsStore.Models
             base.Clear();
             Session.Remove("Cart");
         }
+
+        public override void AddItem(Product product, int quantity)
+        {
+            base.AddItem(product, quantity);
+            Session.SetJson("Cart", this);
+        }
     }
 }
