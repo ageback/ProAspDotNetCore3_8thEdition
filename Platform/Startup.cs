@@ -26,6 +26,7 @@ namespace Platform
                 app.UseDeveloperExceptionPage();
             }
 
+            // 自定义中间件
             app.Use(async (context, next) => {
                 if (context.Request.Method == HttpMethods.Get && context.Request.Query["custom"] == "true")
                 {
@@ -33,6 +34,9 @@ namespace Platform
                 }
                 await next();
             });
+
+            // 自定义中间件，基于Class
+            app.UseMiddleware<QueryStringMiddleWare>();
 
             app.UseRouting();
 
